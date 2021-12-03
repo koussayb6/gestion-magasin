@@ -1,10 +1,12 @@
 package tn.esprit.spring.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +14,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -37,17 +42,19 @@ public class Produit implements Serializable {
 	private String code;
 	private String libelle;
 	private float prixUnitaire;
+	@JsonManagedReference(value = "produit")
 	@OneToMany(mappedBy="produit")
-	private Set<DetailFacture> detailFactures;
+	private List<DetailFacture> detailFactures;
+	@JsonManagedReference(value = "detailProduit")
 	@OneToOne
 	private DetailProduit detailProduit;
 
 	@ManyToMany
 	private Set<Fournisseur> fournisseurs;
-
+	@JsonBackReference(value="stock")
 	@ManyToOne
 	private Stock stock;
-
+	@JsonBackReference(value = "rayon")
 	@ManyToOne
 	private Rayon rayon;
 

@@ -12,6 +12,7 @@ public class ServiceClientImpl implements IserviceClient{
 	
 	@Autowired
 	ClientRepository clientRepository;
+	
 
 	@Override
 	public List<Client> retrieveAllClients() {
@@ -42,5 +43,7 @@ public class ServiceClientImpl implements IserviceClient{
 		
 		return clientRepository.findById(id).orElse(null) ;
 	}
+
+	
 
 }

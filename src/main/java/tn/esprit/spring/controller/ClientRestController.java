@@ -27,6 +27,13 @@ public class ClientRestController {
 		return clientservice.retrieveAllClients();
 	}
 	
+	
+	@GetMapping("/client/{id}")
+	@ResponseBody
+	public Client getClientById(@PathVariable("id") Long id){
+		return clientservice.retrieveClient(id);
+	}
+	
 	@PostMapping("/addClient")
 	@ResponseBody
 	public Client addClient(@RequestBody Client c) {

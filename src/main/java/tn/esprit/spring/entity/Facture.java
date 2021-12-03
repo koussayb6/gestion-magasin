@@ -4,12 +4,14 @@ package tn.esprit.spring.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +19,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -32,7 +38,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-
 public class Facture implements Serializable {
 
 	
@@ -45,11 +50,13 @@ public class Facture implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dateFacture;
 	private boolean active;
+	
+	@JsonBackReference(value = "factures")
 	@ManyToOne
 	private Client client;
+	
+	@JsonManagedReference(value = "detailFactures")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="facture")
-	private Set<DetailFacture> detailFactures;
-	
-	
+	private List<DetailFacture> detailFactures;
 	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import tn.esprit.spring.entity.Client;
 
 public interface IserviceClient {
+	
 	List<Client> retrieveAllClients();
 
 	Client addClient(Client c);
@@ -14,5 +15,6 @@ public interface IserviceClient {
 	Client updateClient(Client c);
 
 	Client retrieveClient(Long id);
+	
 
 }

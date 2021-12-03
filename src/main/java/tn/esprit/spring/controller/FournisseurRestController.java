@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tn.esprit.spring.entity.Fournisseur;
 import tn.esprit.spring.service.IserviceFournisseur;
 @RestController
-public class FournissurRestController {
+public class FournisseurRestController {
 	
 	@Autowired
 	IserviceFournisseur serviceFournissuer;

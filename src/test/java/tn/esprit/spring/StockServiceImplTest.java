@@ -23,7 +23,7 @@ public void testAddStock() {
 List<Stock> stocks = stockService.retrieveAllStocks();
 int expected=stocks.size();
 Stock s = new Stock();
-s.setIdStock(new Long(1));
+
 s.setLibelleStock("stock test");
 s.setQteStock(10);
 s.setQteMin(100);

@@ -16,6 +16,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -44,40 +46,11 @@ public class DetailProduit implements Serializable {
 	private Date dateDerniereModification;
 	@Enumerated(EnumType.STRING)
 	private CategorieProduit categorieProduit;
+	@JsonBackReference(value = "detailProduit")
 	@OneToOne(mappedBy="detailProduit")
 	private Produit produit;
 
 
-	public Long getIdDetailProduit() {
-		return idDetailProduit;
-	}
-	public void setIdDetailProduit(Long idDetailProduit) {
-		this.idDetailProduit = idDetailProduit;
-	}
-	public Date getDateCreation() {
-		return dateCreation;
-	}
-	public void setDateCreation(Date dateCreation) {
-		this.dateCreation = dateCreation;
-	}
-	public Date getDateDerniereModification() {
-		return dateDerniereModification;
-	}
-	public void setDateDerniereModification(Date dateDerniereModification) {
-		this.dateDerniereModification = dateDerniereModification;
-	}
-	public CategorieProduit getCategorieProduit() {
-		return categorieProduit;
-	}
-	public void setCategorieProduit(CategorieProduit categorieProduit) {
-		this.categorieProduit = categorieProduit;
-	}
-	public Produit getProduit() {
-		return produit;
-	}
-	public void setProduit(Produit produit) {
-		this.produit = produit;
-	}
 
 
 }

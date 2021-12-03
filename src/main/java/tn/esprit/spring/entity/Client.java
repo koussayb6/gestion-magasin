@@ -4,17 +4,22 @@ package tn.esprit.spring.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -48,7 +53,10 @@ public class Client implements Serializable {
 	private CategorieClient categorieClient;
 	@Enumerated(EnumType.STRING)
 	private Profession profession;
+	
+	@JsonManagedReference(value="factures")
 	@OneToMany(mappedBy="client")
-	private Set<Facture> factures;
+	private List<Facture> factures;
+	
 	
 }

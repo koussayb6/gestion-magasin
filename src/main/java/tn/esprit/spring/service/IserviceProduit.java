@@ -10,5 +10,8 @@ public interface IserviceProduit {
 	Produit addProduit(Produit p, Long idRayon, Long idStock);
 
 	Produit retrieveProduit(Long id);
+	
+	void affectProduitToStock(Long idProduit, Long idStock) ;
+	void affectProduitToFournisseur(Long idProduit, Long idFourn);
 
 }

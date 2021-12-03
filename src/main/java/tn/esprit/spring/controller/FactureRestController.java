@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import tn.esprit.spring.entity.Client;
 import tn.esprit.spring.entity.Facture;
-import tn.esprit.spring.service.IserviceClient;
 import tn.esprit.spring.service.IserviceFacture;
-
+@RestController
 public class FactureRestController {
+	
 	@Autowired
 	IserviceFacture serviceFacture;
 	

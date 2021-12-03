@@ -3,6 +3,7 @@ package tn.esprit.spring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ public class StockRestController {
 	
 	
 	@GetMapping("/sotcks")
+	@CrossOrigin
 	public List<Stock> getAllstocks(){
 		return servicestock.retrieveAllStocks();
 	}
@@ -42,7 +44,7 @@ public class StockRestController {
 		servicestock.deleteStock(idStock);
 	}
 	
-	@PutMapping
+	@PutMapping("updatestock")
 	@ResponseBody
 	public Stock updateStock(@RequestBody Stock s){
 		return servicestock.updateStock(s);
