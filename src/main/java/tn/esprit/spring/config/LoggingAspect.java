@@ -18,8 +18,9 @@ public void logMethodEntry(JoinPoint joinPoint) {
 String name = joinPoint.getSignature().getName();
 l.info("In method " + name + " : ");
 }
-/*
-@After("........")
-public void logMethodExit....
-}*/
+@After("execution(* tn.esprit.spring.service.ServiceStockImpl.*(..))")
+public void logMethodExit(JoinPoint joinPoint) {
+String name = joinPoint.getSignature().getName();
+l.info("Execution of method " + name + " complete ");
+}
 }
