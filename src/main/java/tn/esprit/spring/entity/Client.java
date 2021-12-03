@@ -58,5 +58,9 @@ public class Client implements Serializable {
 	@OneToMany(mappedBy="client")
 	private List<Facture> factures;
 	
+	@JsonManagedReference(value="reclamations")
+	@OneToMany(mappedBy="client")
+	private List<Reclamation> reclamations;
+	
 	
 }
