@@ -32,6 +32,11 @@ public class FactureRestController {
 		return serviceFacture.retrieveFacture(factureId);
 	}
 	
+	@PostMapping("/addfacture/{id}")
+	@ResponseBody
+	public Facture addfacture(@RequestBody Facture f ,@PathVariable("id") Long clientId){
+		return serviceFacture.addfacture( f , clientId );
+	}
 	
 	@PutMapping("/factures")
 	@ResponseBody

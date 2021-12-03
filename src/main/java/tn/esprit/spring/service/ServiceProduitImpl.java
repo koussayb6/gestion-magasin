@@ -37,7 +37,7 @@ public class ServiceProduitImpl implements IserviceProduit {
 	}
 
 	@Override
-	@Transactional
+	@Transactional 
 	public Produit addProduit(Produit p, Long idRayon, Long idStock) {
 		Rayon rayon= rayonRepository.findById(idRayon).orElse(null);
 		Stock stock= stockRepository.findById(idStock).orElse(null);
