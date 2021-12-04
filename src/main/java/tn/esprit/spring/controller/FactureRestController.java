@@ -33,7 +33,7 @@ public class FactureRestController {
 	
 	@PutMapping("/factures")
 	@ResponseBody
-	public Facture modifyClient(@RequestBody Facture facture) {
+	public Facture modifyFacture(@RequestBody Facture facture) {
 	return serviceFacture.cancelFacture(facture.getIdFacture());
 	}
 }

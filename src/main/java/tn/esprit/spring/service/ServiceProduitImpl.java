@@ -13,6 +13,7 @@ import tn.esprit.spring.entity.Fournisseur;
 import tn.esprit.spring.entity.Produit;
 import tn.esprit.spring.entity.Rayon;
 import tn.esprit.spring.entity.Stock;
+import tn.esprit.spring.repository.ClientRepository;
 import tn.esprit.spring.repository.DetailProduitRepository;
 import tn.esprit.spring.repository.FournisseurRepository;
 import tn.esprit.spring.repository.ProduitRepository;
@@ -31,6 +32,8 @@ public class ServiceProduitImpl implements IserviceProduit {
 	DetailProduitRepository detailProduitRepository;
 	@Autowired
 	FournisseurRepository fournisseurRepository;
+	@Autowired
+	ClientRepository clientRepository;
 	@Override
 	public List<Produit> retrieveAllProduits() {
 		return produitRepository.findAll();
@@ -94,5 +97,8 @@ public class ServiceProduitImpl implements IserviceProduit {
 		p.getFournisseurs().add(f);
 		produitRepository.save(p);
 	}
+	
+
+
 
 }

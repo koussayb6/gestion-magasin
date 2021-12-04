@@ -8,4 +8,5 @@ public interface IserviceFacture {
 	List<Facture> retrieveAllFactures();
 	Facture cancelFacture(Long id);
 	Facture retrieveFacture(Long id);
+	
 }
