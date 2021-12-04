@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,9 +25,10 @@ public class ProduitRestController {
 
 	@GetMapping("produits")
 	@ResponseBody
-	public List<Produit> getAllProduit(){
+	public List<Produit> getAllProduit(@RequestParam(required = false) Float minPrix, @RequestParam(required = false) Float maxPrix,@RequestParam(required = false) String libelle, org.springframework.data.domain.Pageable pageable){
 
-		return serviceproduit.retrieveAllProduits();
+		return serviceproduit.retrieveAllProduits( minPrix,  maxPrix,  libelle,  pageable);
+
 	}
 
 

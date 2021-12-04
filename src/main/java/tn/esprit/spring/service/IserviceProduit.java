@@ -5,7 +5,7 @@ import java.util.List;
 import tn.esprit.spring.entity.Produit;
 
 public interface IserviceProduit {
-	List<Produit> retrieveAllProduits();
+	List<Produit> retrieveAllProduits(Float minPrix, Float maxPrix, String libelle, org.springframework.data.domain.Pageable pageable) ;
 
 	Produit addProduit(Produit p, Long idRayon, Long idStock);
 
