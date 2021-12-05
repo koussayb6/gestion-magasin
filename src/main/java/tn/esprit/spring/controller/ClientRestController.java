@@ -3,6 +3,7 @@ package tn.esprit.spring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ public class ClientRestController {
 	
 	@GetMapping("/clients")
 	@ResponseBody
+	@CrossOrigin
 	public List<Client> getClients(){
 		return clientservice.retrieveAllClients();
 	}
@@ -30,12 +32,14 @@ public class ClientRestController {
 	
 	@GetMapping("/client/{id}")
 	@ResponseBody
+	@CrossOrigin
 	public Client getClientById(@PathVariable("id") Long id){
 		return clientservice.retrieveClient(id);
 	}
 	
 	@PostMapping("/addClient")
 	@ResponseBody
+	@CrossOrigin
 	public Client addClient(@RequestBody Client c) {
 		return clientservice.addClient(c);
 	}
@@ -43,6 +47,7 @@ public class ClientRestController {
 	// http://localhost:8089/SpringMVC/client/remove-client/{client-id}
 	@DeleteMapping("/remove-client/{client-id}")
 	@ResponseBody
+	@CrossOrigin
 	public void removeClient(@PathVariable("client-id") Long clientId) {
 	clientservice.deleteClient(clientId);
 	}
@@ -50,6 +55,7 @@ public class ClientRestController {
 	// http://localhost:8089/SpringMVC/client/modify-client
 	@PutMapping("/modify-client")
 	@ResponseBody
+	@CrossOrigin
 	public Client modifyClient(@RequestBody Client client) {
 	return clientservice.updateClient(client);
 	}
