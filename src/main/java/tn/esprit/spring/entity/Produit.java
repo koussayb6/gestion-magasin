@@ -42,22 +42,27 @@ public class Produit implements Serializable {
 	private String code;
 	private String libelle;
 	private float prixUnitaire;
+	
 	@JsonManagedReference(value = "produit")
 	@OneToMany(mappedBy="produit")
 	private List<DetailFacture> detailFactures;
+	
 	@JsonManagedReference(value = "detailProduit")
 	@OneToOne
 	private DetailProduit detailProduit;
 
 	@ManyToMany
+	private Set<Client> favories;
+	@ManyToMany
 	private Set<Fournisseur> fournisseurs;
+	
 	@JsonBackReference(value="stock")
 	@ManyToOne
 	private Stock stock;
+	
 	@JsonBackReference(value = "rayon")
 	@ManyToOne
 	private Rayon rayon;
-
 
 
 

@@ -2,7 +2,10 @@ package tn.esprit.spring.service;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import tn.esprit.spring.entity.Client;
+import tn.esprit.spring.entity.Produit;
 
 public interface IserviceClient {
 	
@@ -15,6 +18,10 @@ public interface IserviceClient {
 	Client updateClient(Client c);
 
 	Client retrieveClient(Long id);
+	
+	List<Produit> addFavorie(Long idClient, Long idProduit);
+	
+	String sendCodePromo(Long idClient) throws MessagingException;
 	
 
 }

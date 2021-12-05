@@ -2,6 +2,8 @@ package tn.esprit.spring.controller;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.entity.Client;
+import tn.esprit.spring.entity.Produit;
 import tn.esprit.spring.service.IserviceClient;
 
 @RestController
@@ -21,6 +24,8 @@ public class ClientRestController {
 
 	@Autowired
 	IserviceClient clientservice;
+	@Autowired
+
 	
 	@GetMapping("/clients")
 	@ResponseBody
@@ -59,4 +64,18 @@ public class ClientRestController {
 	public Client modifyClient(@RequestBody Client client) {
 	return clientservice.updateClient(client);
 	}
+	
+	@PutMapping("/client/addfavorie/{id-client}/{id-produit}")
+	@ResponseBody
+	public List<Produit> addFavorie(@PathVariable("id-client") Long clientId, @PathVariable("id-produit") Long produitId) {
+		return clientservice.addFavorie(clientId, produitId);
+	}
+	
+	@GetMapping("/client/promo/{id-client}")
+	@ResponseBody
+	public String sendPromo(@PathVariable("id-client") Long clientId)  throws MessagingException{
+		return clientservice.sendCodePromo(clientId);
+		
+	}
+	
 }

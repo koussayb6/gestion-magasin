@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import tn.esprit.spring.entity.CategorieProduit;
 import tn.esprit.spring.entity.Client;
 import tn.esprit.spring.entity.Produit;
-import tn.esprit.spring.repository.ProduitRepository;
 import tn.esprit.spring.service.IserviceProduit;
 @RestController
 public class ProduitRestController {
