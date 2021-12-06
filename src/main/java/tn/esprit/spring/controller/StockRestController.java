@@ -2,6 +2,8 @@ package tn.esprit.spring.controller;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -52,5 +54,13 @@ public class StockRestController {
 	public Stock updateStock(@RequestBody Stock s){
 		return servicestock.updateStock(s);
 
+	}
+	
+	@PostMapping("verifierstock/{id}")
+	@ResponseBody
+	@CrossOrigin
+	public void verifierStock(@PathVariable("id") Long id) throws MessagingException{
+		
+		 servicestock.avertirStock(id);
 	}
 }

@@ -2,6 +2,8 @@ package tn.esprit.spring.service;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import tn.esprit.spring.entity.Stock;
 
 public interface IserviceStock {
@@ -13,4 +15,5 @@ public interface IserviceStock {
 
 	Stock retrieveStock(Long id);
 	void deleteStock(Long id);
+	void avertirStock(Long id) throws MessagingException;
 }
