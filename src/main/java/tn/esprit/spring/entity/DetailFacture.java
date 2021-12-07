@@ -36,7 +36,7 @@ public class DetailFacture implements Serializable {
 	private int qte;
 	private float prixTotal;
 	private int pourcentageRemise;
-	private int montantRemise;
+	private float montantRemise;
 	
 	@JsonBackReference(value = "detailFactures")
 	@ManyToOne

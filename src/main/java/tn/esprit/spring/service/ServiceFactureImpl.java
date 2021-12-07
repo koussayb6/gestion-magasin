@@ -1,10 +1,8 @@
 package tn.esprit.spring.service;
 
-
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,11 +21,11 @@ public class ServiceFactureImpl implements IserviceFacture {
 	@Autowired
 	FactureRepository factureRepository;
 	@Autowired
-	DetailFactureRepository dfactureRepository;
+	ClientRepository clientRepository;
+	@Autowired
+	DetailFactureRepository detailFactureRepository;
 	@Autowired
 	ProduitRepository produitRepository;
-	@Autowired
-	ClientRepository clientRepository;
 	@Override
 	public List<Facture> retrieveAllFactures() {
 		return factureRepository.findAll();
@@ -45,32 +43,52 @@ public class ServiceFactureImpl implements IserviceFacture {
 	public Facture retrieveFacture(Long id) {
 		return factureRepository.findById(id).orElse(null);
 	}
+	
 	@Override
 	public Facture addfacture(Facture f, long idClient) {
 		Client c = clientRepository.findById(idClient).orElse(null);
 		f.setClient(c);
 		f.setDateFacture(new Date());
-		float montant=0;
-		for(DetailFacture df: f.getDetailFactures() )
-		{
-			montant+=df.getPrixTotal();
-		}
-		f.setMontantFacture(montant);
 		Facture ff = factureRepository.save(f);
+
+		float montant=0;
+		float montantremise=0;
+		for(DetailFacture df: ff.getDetailFactures() )
+		{
+			//Produit p= produitRepository.findById(df.getProduit().getIdProduit()).orElse(null);
+			float pt= 10f*(float)df.getQte();
+			df.setPrixTotal(pt);
+			df.setMontantRemise(pt*(Float.valueOf(String.valueOf(df.getPourcentageRemise())))/100f);
+			DetailFacture df1= detailFactureRepository.save(df);
+
+			montant+=pt-df1.getMontantRemise();
+			montantremise+=df1.getMontantRemise();
+			//detailFactureRepository.save(df);
+		}
+		ff.setMontantFacture(montant);
+		ff.setMontantRemise(montantremise);
+		factureRepository.save(ff);
 
 		return ff;
 	}
-
 	/*@Override
-	public DetailFacture addfacture(Facture f, long idClient) {
+	public List<Produit> addfacture(Facture f, long idClient) {
 		Client c = clientRepository.findById(idClient).orElse(null);
 		f.setClient(c);
 		f.setDateFacture(new Date());
 		Facture ff = factureRepository.save(f);
-
+		List<Produit> lp=new ArrayList<>();
 		for(DetailFacture df: ff.getDetailFactures() )
-			dfactureRepository.save(df);
-		return ff;
+		{	
+			lp.add(produitRepository.findById(df.getProduit().getIdProduit()).orElse(null) );
+		}
+		
+		return lp;
 	}*/
 
+	
+	
+	
+	
+	
 }

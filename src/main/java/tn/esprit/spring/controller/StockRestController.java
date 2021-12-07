@@ -32,6 +32,7 @@ public class StockRestController {
 	
 	@PostMapping("/addstock")
 	@ResponseBody
+	@CrossOrigin
 	public Stock addStock(@RequestBody Stock s){
 		
 		return servicestock.addStock(s);
@@ -40,12 +41,14 @@ public class StockRestController {
 	
 	@DeleteMapping("/deletestock/{idStock}")
 	@ResponseBody
+	@CrossOrigin
 	public void deleteStock (@PathVariable ("idStock") Long idStock ){
 		servicestock.deleteStock(idStock);
 	}
 	
 	@PutMapping("updatestock")
 	@ResponseBody
+	@CrossOrigin
 	public Stock updateStock(@RequestBody Stock s){
 		return servicestock.updateStock(s);
 

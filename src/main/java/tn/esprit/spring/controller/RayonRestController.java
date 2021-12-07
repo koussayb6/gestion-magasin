@@ -3,6 +3,7 @@ package tn.esprit.spring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ public class RayonRestController {
 	
 	
 	@GetMapping("/rayons")
+	@CrossOrigin
 	public List<Rayon> getRayons(){
 		 return servicerayon.retrieveAllRayons();
 			
@@ -31,6 +33,7 @@ public class RayonRestController {
 	
 	@PostMapping("/addrayon")
 	@ResponseBody
+	@CrossOrigin
 	public Rayon addRayon(@RequestBody Rayon r){		
 		return servicerayon.addRayon(r);
 	}
@@ -39,6 +42,7 @@ public class RayonRestController {
 	
 	@PutMapping("/updaterayon")
 	@ResponseBody
+	@CrossOrigin
 	public Rayon updateRayon(@RequestBody Rayon r){
 		return servicerayon.updateRayon(r);
 	}
@@ -46,6 +50,7 @@ public class RayonRestController {
 	
 	@DeleteMapping("/deleterayon/{rayonId}")
 	@ResponseBody
+	@CrossOrigin
 	public void deleteRayon(@PathVariable ("rayonId") Long rayonId ){
 		servicerayon.deleteRayon(rayonId);
 		
