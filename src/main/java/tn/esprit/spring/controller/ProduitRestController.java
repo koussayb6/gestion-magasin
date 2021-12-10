@@ -44,10 +44,12 @@ public class ProduitRestController {
 		return serviceproduit.getRevenuBrutProduit(idProduit, fromDate, toDate);
 	}
 	
-	@GetMapping("revenueC/{cat}")
+	@GetMapping("revenueC")
+	@ResponseBody
 	@CrossOrigin
-	public float getRevenuBrutProduit(@PathVariable("cat") CategorieProduit cat, @RequestParam
-    @DateTimeFormat(pattern = DATE_PATTERN) Date fromDate, @RequestParam @DateTimeFormat(pattern = DATE_PATTERN) Date toDate) {
+	public float getRevenuBrutProduit(@RequestParam("cat") CategorieProduit cat, 
+			@RequestParam("from") @DateTimeFormat(pattern = DATE_PATTERN) Date fromDate, 
+			@RequestParam("to") @DateTimeFormat(pattern = DATE_PATTERN) Date toDate) {
 		return serviceproduit.getRevenuBrutCategorieProduit(cat, fromDate, toDate);
 	}
 

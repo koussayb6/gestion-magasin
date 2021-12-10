@@ -13,12 +13,12 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class LoggingAspect {
 private static final Logger l = LogManager.getLogger(LoggingAspect.class);
-@Before("execution(* tn.esprit.spring.service.ServiceStockImpl.*(..))")
+@Before("execution(* tn.esprit.spring.service.*.*(..))")
 public void logMethodEntry(JoinPoint joinPoint) {
 String name = joinPoint.getSignature().getName();
 l.info("In method " + name + " : ");
 }
-@After("execution(* tn.esprit.spring.service.ServiceStockImpl.*(..))")
+@After("execution(* tn.esprit.spring.service.*.*(..))")
 public void logMethodExit(JoinPoint joinPoint) {
 String name = joinPoint.getSignature().getName();
 l.info("Execution of method " + name + " complete ");

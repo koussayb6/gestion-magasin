@@ -54,6 +54,7 @@ public class Client implements Serializable {
 	private CategorieClient categorieClient;
 	@Enumerated(EnumType.STRING)
 	private Profession profession;
+	private float compteurPromo;
 	
 	@JsonManagedReference(value="factures")
 	@OneToMany(mappedBy="client")
@@ -62,6 +63,10 @@ public class Client implements Serializable {
 	@JsonManagedReference(value="reclamations")
 	@OneToMany(mappedBy="client")
 	private List<Reclamation> reclamations;
+	
+	@JsonManagedReference(value="codesPromo")
+	@OneToMany(mappedBy="client")
+	private List<CodePromo> codesPromo;
 	
 	@ManyToMany
 	private List<Produit> favories;
