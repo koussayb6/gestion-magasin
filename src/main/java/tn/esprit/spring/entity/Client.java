@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -53,10 +54,20 @@ public class Client implements Serializable {
 	private CategorieClient categorieClient;
 	@Enumerated(EnumType.STRING)
 	private Profession profession;
+	private float compteurPromo;
 	
 	@JsonManagedReference(value="factures")
 	@OneToMany(mappedBy="client")
 	private List<Facture> factures;
 	
+	@JsonManagedReference(value="reclamations")
+	@OneToMany(mappedBy="client")
+	private List<Reclamation> reclamations;
 	
+	@JsonManagedReference(value="codesPromo")
+	@OneToMany(mappedBy="client")
+	private List<CodePromo> codesPromo;
+	
+	@ManyToMany
+	private List<Produit> favories;
 }

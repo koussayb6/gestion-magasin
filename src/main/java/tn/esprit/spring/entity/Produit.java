@@ -48,19 +48,23 @@ public class Produit implements Serializable {
 	@JsonManagedReference(value = "produit")
 	@OneToMany(mappedBy="produit")
 	private List<DetailFacture> detailFactures;
+	
 	@JsonManagedReference(value = "detailProduit")
 	@OneToOne(cascade=CascadeType.ALL)
 	private DetailProduit detailProduit;
 
 	@ManyToMany
+	private Set<Client> favories;
+	@ManyToMany
 	private Set<Fournisseur> fournisseurs;
+	
 	@JsonBackReference(value="stock")
 	@ManyToOne
 	private Stock stock;
+	
 	@JsonBackReference(value = "rayon")
 	@ManyToOne
 	private Rayon rayon;
-
 
 
 

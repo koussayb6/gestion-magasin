@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import tn.esprit.spring.entity.CategorieProduit;
 import tn.esprit.spring.entity.Client;
 import tn.esprit.spring.entity.Produit;
-import tn.esprit.spring.repository.ProduitRepository;
 import tn.esprit.spring.service.IserviceProduit;
 @RestController
 public class ProduitRestController {
@@ -59,10 +58,12 @@ public class ProduitRestController {
 		return serviceproduit.pic(idProduit);
 	}
 	
-	@GetMapping("revenueC/{cat}")
+	@GetMapping("revenueC")
+	@ResponseBody
 	@CrossOrigin
-	public float getRevenuBrutProduit(@PathVariable("cat") CategorieProduit cat, @RequestParam
-    @DateTimeFormat(pattern = DATE_PATTERN) Date fromDate, @RequestParam @DateTimeFormat(pattern = DATE_PATTERN) Date toDate) {
+	public float getRevenuBrutProduit(@RequestParam("cat") CategorieProduit cat, 
+			@RequestParam("from") @DateTimeFormat(pattern = DATE_PATTERN) Date fromDate, 
+			@RequestParam("to") @DateTimeFormat(pattern = DATE_PATTERN) Date toDate) {
 		return serviceproduit.getRevenuBrutCategorieProduit(cat, fromDate, toDate);
 	}
 

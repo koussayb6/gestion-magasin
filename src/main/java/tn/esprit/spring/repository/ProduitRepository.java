@@ -16,12 +16,12 @@ public interface ProduitRepository extends JpaRepository<Produit, Long>, JpaSpec
 		/*@Query("SELECT c FROM Client c WHERE c.profession= :profession")
 		List<Client> retrieveClientsByProfession(@Param("profession") Profession profession);*/
 		
-		@Query(value="select sum(df.prix_total) from facture f "
-				+ "join detail_facture df on df.facture_id_facture = f.id_facture "
-				+ "join produit p on df.produit_id_produit = p.id_produit "
-				+ "join detail_produit dp on dp.id_detail_produit = p.detail_produit_id_detail_produit "
-				+ "where dp.categorie_produit = \"?1\" "
-				+ "and f.date_facture between '?2' and '?3' ", nativeQuery=true)
+		@Query("select sum(df.prixTotal) from Facture f "
+				+ "join f.detailFactures df "
+				+ "join df.produit p "
+				+ "join p.detailProduit dp "
+				+ "where dp.categorieProduit = ?1 "
+				+ "and f.dateFacture between ?2 and ?3")
 		float getRevenuBrutCategorieProduit(CategorieProduit cat, Date startDate, Date endDate);
 
 }

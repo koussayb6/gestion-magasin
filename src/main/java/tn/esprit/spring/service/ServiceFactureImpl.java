@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.Client;
+import tn.esprit.spring.entity.CodePromo;
 import tn.esprit.spring.entity.DetailFacture;
 import tn.esprit.spring.entity.Facture;
 import tn.esprit.spring.entity.Produit;
 import tn.esprit.spring.repository.ClientRepository;
+import tn.esprit.spring.repository.CodePromoRepository;
 import tn.esprit.spring.repository.DetailFactureRepository;
 import tn.esprit.spring.repository.FactureRepository;
 import tn.esprit.spring.repository.ProduitRepository;
@@ -26,6 +28,8 @@ public class ServiceFactureImpl implements IserviceFacture {
 	DetailFactureRepository detailFactureRepository;
 	@Autowired
 	ProduitRepository produitRepository;
+	@Autowired
+	CodePromoRepository codePromoRepository;
 	@Override
 	public List<Facture> retrieveAllFactures() {
 		return factureRepository.findAll();
@@ -43,31 +47,54 @@ public class ServiceFactureImpl implements IserviceFacture {
 	public Facture retrieveFacture(Long id) {
 		return factureRepository.findById(id).orElse(null);
 	}
-	
 	@Override
-	public Facture addfacture(Facture f, long idClient) {
+	public List<Facture> getFacturesClient(Long idClient){
+		Client c =clientRepository.findById(idClient).orElse(null);
+		return c.getFactures();
+	}
+
+
+
+	@Override
+	public Facture addfacture(Facture f, long idClient, String codePromo) {
 		Client c = clientRepository.findById(idClient).orElse(null);
 		f.setClient(c);
 		f.setDateFacture(new Date());
 		Facture ff = factureRepository.save(f);
-
+		CodePromo codeP= codePromoRepository.findByCode(codePromo);
+		boolean codeValid= codeP!=null 
+				&& codeP.getDateExpiration().after(new Date()) 
+				&& codeP.isActive() 
+				&& codeP.getClient()==c;
+		float montantCategorieCode=0;
 		float montant=0;
 		float montantremise=0;
 		for(DetailFacture df: ff.getDetailFactures() )
 		{
 			Produit p= produitRepository.findById(df.getProduit().getIdProduit()).orElse(null);
-			float pt= 10f*(float)df.getQte();
+			float pt= p.getPrixUnitaire()*(float)df.getQte();
 			df.setPrixTotal(pt);
+			if( codeValid && p.getDetailProduit().getCategorieProduit()==codeP.getCategorieProduit()) {
+
+				montantCategorieCode+=pt;
+			}
 			df.setMontantRemise(pt*(Float.valueOf(String.valueOf(df.getPourcentageRemise())))/100f);
 			DetailFacture df1= detailFactureRepository.save(df);
 
 			montant+=pt-df1.getMontantRemise();
 			montantremise+=df1.getMontantRemise();
-			//detailFactureRepository.save(df);
 		}
+		if(codeP!=null&&montantCategorieCode >= codeP.getMontantMin()) {
+			montant-=montantCategorieCode*(Float.valueOf(String.valueOf(codeP.getPourcentageRemise())))/100f;
+			montantremise+=montantCategorieCode*(Float.valueOf(String.valueOf(codeP.getPourcentageRemise())))/100f;
+			codeP.setActive(false);
+			codePromoRepository.save(codeP);
+		}
+		c.setCompteurPromo(c.getCompteurPromo()+montant);
 		ff.setMontantFacture(montant);
 		ff.setMontantRemise(montantremise);
 		factureRepository.save(ff);
+		clientRepository.save(c);
 
 		return ff;
 	}
@@ -77,15 +104,18 @@ public class ServiceFactureImpl implements IserviceFacture {
 		f.setClient(c);
 		f.setDateFacture(new Date());
 		Facture ff = factureRepository.save(f);
-
 		List<Produit> lp=new ArrayList<>();
 		for(DetailFacture df: ff.getDetailFactures() )
 		{	
 			lp.add(produitRepository.findById(df.getProduit().getIdProduit()).orElse(null) );
 		}
-		
 
 		return lp;
 	}*/
+
+
+
+
+
 
 }

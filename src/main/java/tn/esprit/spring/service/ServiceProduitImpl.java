@@ -30,6 +30,7 @@ import tn.esprit.spring.entity.Fournisseur;
 import tn.esprit.spring.entity.Produit;
 import tn.esprit.spring.entity.Rayon;
 import tn.esprit.spring.entity.Stock;
+import tn.esprit.spring.repository.ClientRepository;
 import tn.esprit.spring.repository.DetailProduitRepository;
 import tn.esprit.spring.repository.FournisseurRepository;
 import tn.esprit.spring.repository.ProduitRepository;
@@ -155,6 +156,9 @@ public class ServiceProduitImpl implements IserviceProduit {
 		p.getFournisseurs().add(f);
 		produitRepository.save(p);
 	}
+	
+
+
 
 	@Override
 	public float getRevenuBrutProduit(Long idProduit, Date startDate, Date endDate) {
