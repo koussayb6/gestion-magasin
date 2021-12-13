@@ -55,7 +55,7 @@ public class ServiceFactureImpl implements IserviceFacture {
 		float montantremise=0;
 		for(DetailFacture df: ff.getDetailFactures() )
 		{
-			//Produit p= produitRepository.findById(df.getProduit().getIdProduit()).orElse(null);
+			Produit p= produitRepository.findById(df.getProduit().getIdProduit()).orElse(null);
 			float pt= 10f*(float)df.getQte();
 			df.setPrixTotal(pt);
 			df.setMontantRemise(pt*(Float.valueOf(String.valueOf(df.getPourcentageRemise())))/100f);

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -42,11 +43,13 @@ public class Produit implements Serializable {
 	private String code;
 	private String libelle;
 	private float prixUnitaire;
+	@Column(name = "picByte", length = 1000)
+	private byte[] picByte;
 	@JsonManagedReference(value = "produit")
 	@OneToMany(mappedBy="produit")
 	private List<DetailFacture> detailFactures;
 	@JsonManagedReference(value = "detailProduit")
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private DetailProduit detailProduit;
 
 	@ManyToMany
