@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.spring.entity.CategorieProduit;
 import tn.esprit.spring.entity.Client;
 import tn.esprit.spring.entity.Produit;
+import tn.esprit.spring.repository.ClientRepository;
 import tn.esprit.spring.service.IserviceClient;
 
 @RestController
@@ -25,13 +27,19 @@ public class ClientRestController {
 	@Autowired
 	IserviceClient clientservice;
 	@Autowired
-
+	ClientRepository repo;
 	
 	@GetMapping("/clients")
 	@ResponseBody
 	@CrossOrigin
 	public List<Client> getClients(){
 		return clientservice.retrieveAllClients();
+	}
+	@GetMapping("/topcategorie/{id-client}")
+	@ResponseBody
+	@CrossOrigin
+	public CategorieProduit topcategorie(@PathVariable("id-client") Long id){
+		return repo.getMostBoughtCategorie(id);
 	}
 	
 	

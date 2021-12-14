@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,12 +33,12 @@ public class FactureRestController {
 	@GetMapping("/facture/{id}")
 	@ResponseBody
 	@CrossOrigin
-	public Facture getFactures(@PathVariable("id") Long factureId){
+	public Facture getFacture(@PathVariable("id") Long factureId){
 		return serviceFacture.retrieveFacture(factureId);
 	}
 	
 	
-	@PutMapping("/factures")
+	@PutMapping("/cancelfacture")
 	@ResponseBody
 	@CrossOrigin
 	public Facture modifyFacture(@RequestBody Facture facture) {
@@ -47,7 +48,7 @@ public class FactureRestController {
 	@PostMapping("/addfacture/{id}")
 	@ResponseBody
 	@CrossOrigin
-	public Facture addfacture(@RequestBody Facture f ,@PathVariable("id") Long clientId){
-		return serviceFacture.addfacture( f , clientId );
+	public Facture addfacture(@RequestBody Facture f ,@PathVariable("id") Long clientId, @RequestParam(required=false, value="code") String code){
+		return serviceFacture.addfacture( f , clientId, code );
 	}
 }
