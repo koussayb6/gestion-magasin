@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import tn.esprit.spring.entity.Stock;
 import tn.esprit.spring.repository.StockRepository;
@@ -12,6 +13,7 @@ public class ServiceStockImpl implements IserviceStock{
 
 	@Autowired
 	StockRepository stockRepository;
+	@CrossOrigin("*")
 	@Override
 	public List<Stock> retrieveAllStocks() {
 		List<Stock> list= (List<Stock>) stockRepository.findAll();

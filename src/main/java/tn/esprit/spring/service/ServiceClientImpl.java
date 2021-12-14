@@ -76,7 +76,7 @@ public class ServiceClientImpl implements IserviceClient{
 			return "nothing will be recived";
 		}
 		else{
-			emailService.sendEmailWithAttachment("aminous1995@gmail.com",
+			emailService.sendEmailWithAttachment("ahmedoussemabenhmida@icloud.com",
 					" CODE PROMO 4F5DDZ22",
 					"Congratulation !!!");
 			

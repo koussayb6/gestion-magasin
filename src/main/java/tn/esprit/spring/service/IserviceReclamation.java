@@ -2,6 +2,7 @@ package tn.esprit.spring.service;
 
 import java.util.List;
 
+import tn.esprit.spring.entity.Notifications;
 import tn.esprit.spring.entity.Reclamation;
 
 public interface IserviceReclamation {
@@ -11,7 +12,12 @@ public interface IserviceReclamation {
 	void deleteReclamation(Long id);
 	Reclamation updateReclamation(Reclamation r);
 	Reclamation retriveReclamation(Long id);
-	Reclamation updateStatuOftheReclamation(Reclamation r);
+	Reclamation confirmeReclama(Reclamation r);
+	Reclamation refuseReclama(Reclamation r);
+	List<Notifications> retriveAllNotif();
+
+	
+	
 
 
 

@@ -65,7 +65,7 @@ public class ClientRestController {
 	return clientservice.updateClient(client);
 	}
 	
-	@PutMapping("/client/addfavorie/{id-client}/{id-produit}")
+	@GetMapping("/client/addfavorie/{id-client}/{id-produit}")
 	@ResponseBody
 	public List<Produit> addFavorie(@PathVariable("id-client") Long clientId, @PathVariable("id-produit") Long produitId) {
 		return clientservice.addFavorie(clientId, produitId);
