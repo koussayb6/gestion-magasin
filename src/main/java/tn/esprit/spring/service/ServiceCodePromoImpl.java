@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ public class ServiceCodePromoImpl implements IserviceCodePromo {
 	CodePromoRepository corePromoRepo;
 	@Autowired
 	ClientRepository clientRepository;
+	@Autowired
+	private EmailSenderService emailService;
 
 	@Override
 	public List<CodePromo> retrieveAllCodes() {
@@ -48,8 +52,8 @@ public class ServiceCodePromoImpl implements IserviceCodePromo {
 	public CodePromo retrieveCodePromo(Long id) {
 		return corePromoRepo.findById(id).orElse(null);
 	}
-	@Scheduled(fixedDelay = 1000)
-	public void generatePromoCode() {
+	@Scheduled(fixedDelay = 10000)
+	public void generatePromoCode() throws MessagingException {
 		for(Client c: clientRepository.findAll()) {
 			if(c.getCompteurPromo()>=1000) {
 				CodePromo code= new CodePromo();
@@ -67,6 +71,9 @@ public class ServiceCodePromoImpl implements IserviceCodePromo {
 				c.setCompteurPromo(c.getCompteurPromo()-1000);
 				clientRepository.save(c);
 				corePromoRepo.save(code);
+				emailService.sendEmailWithAttachment("ahmedoussemabenhmida@icloud.com",
+						"Votre CODE PROMO "+code.getCode(),
+						"Congratulation !!!");
 				
 			}
 		}

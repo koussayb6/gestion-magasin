@@ -45,6 +45,11 @@ public class ProduitRestController {
 		return list;
 
 	}
+	@GetMapping("produit/{id-prod}")
+	@CrossOrigin
+	public Produit getProd(@PathVariable("id-prod") Long idProduit) {
+		return serviceproduit.getProduit(idProduit);
+	}
 	
 	@GetMapping("revenueP/{id-prod}")
 	@CrossOrigin

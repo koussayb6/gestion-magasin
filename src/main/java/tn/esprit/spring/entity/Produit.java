@@ -65,6 +65,10 @@ public class Produit implements Serializable {
 	@JsonBackReference(value = "rayon")
 	@ManyToOne
 	private Rayon rayon;
+	
+	/*@JsonBackReference(value="panierproduit")
+	@OneToMany(mappedBy="produit")
+	private List<Panier> panier ;*/
 
 
 

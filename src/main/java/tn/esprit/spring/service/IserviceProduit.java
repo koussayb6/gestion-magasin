@@ -14,7 +14,7 @@ public interface IserviceProduit {
 
 	Produit addProduit(Produit p, Long idRayon, Long idStock, CategorieProduit cat, MultipartFile file) throws IOException;
 	Produit updateProduit(Long idProduit,Produit p, Long idRayon, Long idStock, CategorieProduit cat, MultipartFile file) throws IOException;
-
+	Produit getProduit(Long id);
 	Produit retrieveProduit(Long id);
 	List<Produit>  pic(Long id);
 	void deleteProduit(Long id);
