@@ -29,4 +29,5 @@ public class Fournisseur implements Serializable {
 	private Long idFournisseur; 
 	private String codeFournisseur;
 	private String libelleFournisseur;
+	private String telephone;
 }

@@ -56,11 +56,5 @@ public class StockRestController {
 
 	}
 	
-	@PostMapping("verifierstock/{id}")
-	@ResponseBody
-	@CrossOrigin
-	public void verifierStock(@PathVariable("id") Long id) throws MessagingException{
-		
-		 servicestock.avertirStock(id);
-	}
+	
 }

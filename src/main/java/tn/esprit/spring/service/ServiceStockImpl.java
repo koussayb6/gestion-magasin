@@ -6,7 +6,10 @@ import java.util.List;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import tn.esprit.spring.entity.Fournisseur;
 import tn.esprit.spring.entity.Stock;
@@ -51,21 +54,27 @@ public class ServiceStockImpl implements IserviceStock{
 		return s.getQteMin() >= s.getQteStock();
 		
 	}
-
-	@Override
-	public void avertirStock(Long id) throws MessagingException {
-		Stock s = stockRepository.findById(id).orElse(null);
-		if(this.verifyStock(id)){
-			List<String> fournisseurs= new ArrayList<>();
-			for(Fournisseur f:s.getProduits().get(1).getFournisseurs()){
-				fournisseurs.add(f.getLibelleFournisseur());
+	
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
+	@Scheduled(fixedRate=600000)
+	public void avertirStock() throws MessagingException {
+		List<Stock> list =stockRepository.findAll();
+		String body="Ces stocks ont atteint la limite\n";
+		for(Stock s:list){
+			if(this.verifyStock(s.getIdStock())&& s.getProduits().size()>0){
+				List<String> fournisseurs= new ArrayList<>();
+				body=body+"\n stock "+s.getLibelleStock()+" du produit "+s.getProduits().get(0).getLibelle()+
+						" est en rouge\n   la quantité minimale: "+s.getQteMin()
+				+" , la quantité actuelle: "+s.getQteStock()+" \n liste de fournisseurs: ";
+				for(Fournisseur f:s.getProduits().get(0).getFournisseurs()){
+					body = body+"\n         "+f.getLibelleFournisseur()+" numéro: "+f.getTelephone();
+				}
+				
+				
 			}
-			
-			mailer.sendEmailWithAttachment("admin@admin.com", "<h1>Quantité minimale du stock atteinte"
-					+ "produit: "+s.getProduits().get(1).getLibelle()+
-					"stock: "+s.getLibelleStock()+
-					"liste de fournisseurs: "+fournisseurs.toString()+"</h1>" ,"Stock de" +s.getProduits().get(1).getLibelle()+" presque épuisé");
 		}
+		mailer.sendEmailWithAttachment("admin@admin.com", body ,"Rapport Stock");
+		
 	}
 
 }

@@ -15,5 +15,4 @@ public interface IserviceStock {
 
 	Stock retrieveStock(Long id);
 	void deleteStock(Long id);
-	void avertirStock(Long id) throws MessagingException;
 }

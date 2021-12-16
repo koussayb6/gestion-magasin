@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.spring.entity.CategorieProduit;
 import tn.esprit.spring.entity.Fournisseur;
 import tn.esprit.spring.service.IserviceFournisseur;
 @RestController
@@ -48,6 +49,14 @@ public class FournisseurRestController {
 	@CrossOrigin
 	public Fournisseur updateFournisseur(@RequestBody Fournisseur f){
 		return serviceFournissuer.updateFournisseur(f);
+		
+	}
+	
+	@GetMapping("/getFournisseurByProduit/{cat}")
+	@ResponseBody
+	@CrossOrigin
+	public List<Fournisseur> getFournisseurByProduit(@PathVariable ("cat") CategorieProduit cat){		
+		return serviceFournissuer.getFournisseurByProduit(cat);
 		
 	}
 

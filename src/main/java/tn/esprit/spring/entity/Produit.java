@@ -52,9 +52,9 @@ public class Produit implements Serializable {
 	private DetailProduit detailProduit;
 
 	@ManyToMany
-	private Set<Client> favories;
+	private List<Client> favories;
 	@ManyToMany
-	private Set<Fournisseur> fournisseurs;
+	private List<Fournisseur> fournisseurs;
 	
 	@JsonBackReference(value="stock")
 	@ManyToOne
