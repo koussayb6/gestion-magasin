@@ -72,7 +72,7 @@ public class ClientRestController {
 	public Client modifyClient(@RequestBody Client client) {
 	return clientservice.updateClient(client);
 	}
-	
+	@CrossOrigin
 	@GetMapping("/client/addfavorie/{id-client}/{id-produit}")
 	@ResponseBody
 	public List<Produit> addFavorie(@PathVariable("id-client") Long clientId, @PathVariable("id-produit") Long produitId) {

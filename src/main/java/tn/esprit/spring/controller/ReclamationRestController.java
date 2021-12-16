@@ -1,6 +1,8 @@
-package tn.esprit.spring.controller;
+	package tn.esprit.spring.controller;
 
 import java.util.List;
+
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,11 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.entity.Notifications;
 import tn.esprit.spring.entity.Reclamation;
+import tn.esprit.spring.entity.TypeReclamation;
 import tn.esprit.spring.service.IserviceReclamation;
 
 @RestController
@@ -83,4 +87,19 @@ public class ReclamationRestController {
 	public List<Notifications> getAllNotifications(){
 		return reclamationservice.retriveAllNotif();
 	}
+	
+	@GetMapping("/reclamationfiltre")
+	@ResponseBody
+	@CrossOrigin
+	public List<Reclamation> getReclamationfiltre(@RequestParam(required=false , value="idClient") Long idClient,@RequestParam(required=false , value="status")String status ,
+			@RequestParam(required=false , value="typer") TypeReclamation tr){
+		return reclamationservice.filterReclama(idClient, status, tr);
+	}
+	@GetMapping("/reclamations/{client-id}")
+	@ResponseBody
+	@CrossOrigin
+	public List<Reclamation> getClientReclamations(@PathVariable("client-id") Long idclient){
+		return reclamationservice.getRecByClient(idclient);
+	}
+	
 }

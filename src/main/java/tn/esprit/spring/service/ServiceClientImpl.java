@@ -21,8 +21,6 @@ public class ServiceClientImpl implements IserviceClient{
 	ClientRepository clientRepository;
 	@Autowired
 	ProduitRepository produitRepository;
-	 @Autowired
-	private EmailSenderService emailService;
 	 
 	@Override
 	public List<Client> retrieveAllClients() {
@@ -64,27 +62,6 @@ public class ServiceClientImpl implements IserviceClient{
 		
 	}
 	
-	
-	@Override
-	public String sendCodePromo(Long idClient) throws MessagingException {
-		Client c = clientRepository.findById(idClient).orElse(null);
-		int total=0;
-		for (Facture F : c.getFactures()){
-			total+=F.getMontantFacture();
-		}
-		if (total < 1000) {
-			return "nothing will be recived";
-		}
-		else{
-			emailService.sendEmailWithAttachment("ahmedoussemabenhmida@icloud.com",
-					" CODE PROMO 4F5DDZ22",
-					"Congratulation !!!");
-			
-			return "email will be send";
-		}
-		
-		
-	}
 
 	
 }

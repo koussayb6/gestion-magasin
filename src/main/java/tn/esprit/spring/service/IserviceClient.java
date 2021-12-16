@@ -21,7 +21,6 @@ public interface IserviceClient {
 	
 	List<Produit> addFavorie(Long idClient, Long idProduit);
 	
-	String sendCodePromo(Long idClient) throws MessagingException;
 	
 
 }

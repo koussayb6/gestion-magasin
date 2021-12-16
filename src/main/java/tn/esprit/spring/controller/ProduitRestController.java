@@ -121,5 +121,10 @@ public class ProduitRestController {
 	public void deleteProd(@PathVariable("id-prod") Long id) {
 		serviceproduit.deleteProduit(id);
 	}
+	@GetMapping("produit/{id-prod}")
+	@CrossOrigin
+	public Produit getProd(@PathVariable("id-prod") Long idProduit) {
+		return serviceproduit.getProduit(idProduit);
+	}
 
 }

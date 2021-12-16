@@ -4,6 +4,7 @@ import java.util.List;
 
 import tn.esprit.spring.entity.Notifications;
 import tn.esprit.spring.entity.Reclamation;
+import tn.esprit.spring.entity.TypeReclamation;
 
 public interface IserviceReclamation {
 	
@@ -15,6 +16,8 @@ public interface IserviceReclamation {
 	Reclamation confirmeReclama(Reclamation r);
 	Reclamation refuseReclama(Reclamation r);
 	List<Notifications> retriveAllNotif();
+	List<Reclamation> filterReclama(Long idClient , String status , TypeReclamation tr);
+	List<Reclamation> getRecByClient(Long idclient);
 
 	
 	

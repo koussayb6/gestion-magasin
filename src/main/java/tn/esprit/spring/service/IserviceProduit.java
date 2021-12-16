@@ -23,6 +23,7 @@ public interface IserviceProduit {
 	float getRevenuBrutProduit(Long idProduit, Date startDate, Date endDate);
 	float getRevenuBrutCategorieProduit(CategorieProduit cat, Date startDate, Date endDate);
 	byte[] decompressBytes(byte[] data);
+	Produit getProduit(Long id);
 
 
 

@@ -236,6 +236,11 @@ public class ServiceProduitImpl implements IserviceProduit {
 		}
 		return outputStream.toByteArray();
 	}
-
+	
+	@Override
+	public Produit getProduit(Long id) {
+		return produitRepository.findById(id).orElse(null);
+	}
 
 }
+
