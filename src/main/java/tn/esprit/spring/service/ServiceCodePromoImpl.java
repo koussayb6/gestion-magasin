@@ -23,7 +23,7 @@ public class ServiceCodePromoImpl implements IserviceCodePromo {
 	CodePromoRepository corePromoRepo;
 	@Autowired
 	ClientRepository clientRepository;
-	 @Autowired
+	
 	private EmailSenderService emailService;
 
 	@Override
@@ -74,6 +74,7 @@ public class ServiceCodePromoImpl implements IserviceCodePromo {
 				emailService.sendEmailWithAttachment("ahmedoussemabenhmida@icloud.com",
 						"Votre CODE PROMO "+code.getCode(),
 						"Congratulation !!!");
+				
 			}
 		}
 	}

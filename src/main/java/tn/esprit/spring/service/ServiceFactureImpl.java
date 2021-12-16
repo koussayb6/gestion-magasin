@@ -2,11 +2,15 @@ package tn.esprit.spring.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tn.esprit.spring.entity.CategorieProduit;
 import tn.esprit.spring.entity.Client;
 import tn.esprit.spring.entity.CodePromo;
 import tn.esprit.spring.entity.DetailFacture;
@@ -56,7 +60,7 @@ public class ServiceFactureImpl implements IserviceFacture {
 
 
 	@Override
-	public Facture addfacture(Facture f, long idClient, String codePromo) {
+	public Facture addfacture(Facture f, Long idClient, String codePromo) {
 		Client c = clientRepository.findById(idClient).orElse(null);
 		f.setClient(c);
 		f.setDateFacture(new Date());
@@ -113,9 +117,54 @@ public class ServiceFactureImpl implements IserviceFacture {
 		return lp;
 	}*/
 
+	@Override
+	public List<Facture> getProduitFacture(Long idProduit) {
+		List<Facture> list = factureRepository.getProduitFacture(idProduit);
 
+		/*List<Facture> list = new ArrayList<>();
+		Produit p = produitRepository.findById(idProduit).orElse(null);
+		for (DetailFacture dt : p.getDetailFactures()) {
+			list.add(dt.getFacture());
+		}*/
+		return list;
+	}
 
+	@Override
+	public List<Facture> getCategorieFacture(CategorieProduit cat) {
+		List<Facture> list = new ArrayList<>();
+		for (Facture f  : factureRepository.findAll()) {
+			for (DetailFacture dt : f.getDetailFactures()) {
+				if (dt.getProduit().getDetailProduit().getCategorieProduit()==cat) {
+					list.add(f);
+					break;
+				}
+			}
+		}
+		return list;
+	}
 
+	@Override
+	public List<Facture> getFactures(Float prixmin, Float prixmax, Date datedebut, Date datefin) {
+		Stream<Facture> streamf = factureRepository.findAll().stream();
+		if(prixmin !=  null) {
+			streamf = streamf.filter(e->e.getMontantFacture()>=prixmin);
+			}
+			
+		if(prixmax !=  null) {
+			streamf = streamf.filter(e->e.getMontantFacture()<=prixmax);
+		}
+		if(datedebut !=  null) {
+			streamf = streamf.filter(e->e.getDateFacture().after(datedebut));
+		}	
+		if(datefin !=  null) {
+			streamf = streamf.filter(e->e.getDateFacture().before(datefin));
+		}
+		
+		return streamf.collect(Collectors.toList());
+	}
+	
+	
 
 
 }
+

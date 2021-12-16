@@ -14,7 +14,7 @@ public interface IserviceProduit {
 
 	Produit addProduit(Produit p, Long idRayon, Long idStock, CategorieProduit cat, MultipartFile file) throws IOException;
 	Produit updateProduit(Long idProduit,Produit p, Long idRayon, Long idStock, CategorieProduit cat, MultipartFile file) throws IOException;
-
+	Produit getProduit(Long id);
 	Produit retrieveProduit(Long id);
 	List<Produit>  pic(Long id);
 	void deleteProduit(Long id);
@@ -23,7 +23,6 @@ public interface IserviceProduit {
 	float getRevenuBrutProduit(Long idProduit, Date startDate, Date endDate);
 	float getRevenuBrutCategorieProduit(CategorieProduit cat, Date startDate, Date endDate);
 	byte[] decompressBytes(byte[] data);
-	Produit getProduit(Long id);
 
 
 

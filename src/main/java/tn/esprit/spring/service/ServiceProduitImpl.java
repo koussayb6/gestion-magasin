@@ -72,6 +72,10 @@ public class ServiceProduitImpl implements IserviceProduit {
 
 	}
 	@Override
+	public Produit getProduit(Long id) {
+		return produitRepository.findById(id).orElse(null);
+	}
+	@Override
 	public void deleteProduit(Long id) {
 		produitRepository.deleteById(id);
 	}
@@ -237,10 +241,7 @@ public class ServiceProduitImpl implements IserviceProduit {
 		return outputStream.toByteArray();
 	}
 	
-	@Override
-	public Produit getProduit(Long id) {
-		return produitRepository.findById(id).orElse(null);
-	}
+	
 
 }
 
